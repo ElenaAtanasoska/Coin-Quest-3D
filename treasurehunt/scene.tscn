@@ -1,0 +1,208 @@
+[gd_scene load_steps=22 format=3 uid="uid://b5hj61t3iovgd"]
+
+[ext_resource type="Texture2D" uid="uid://bts7fg7olc338" path="res://kloofendal_48d_partly_cloudy_puresky_4k.exr" id="1_iboay"]
+[ext_resource type="Script" path="res://scene.gd" id="1_mg3sh"]
+[ext_resource type="Texture2D" uid="uid://tkun1voqy5gn" path="res://rocky_terrain_02_4k/textures/rocky_terrain_02_diff_4k.png" id="2_aeaar"]
+[ext_resource type="Texture2D" uid="uid://dn0fly7bwbea" path="res://stone_tiles_03_4k/textures/stone_tiles_03_diff_4k.png" id="5_1lv00"]
+[ext_resource type="PackedScene" uid="uid://bo75ra63fnmd5" path="res://coin_silver.tscn" id="5_tgs28"]
+[ext_resource type="Texture2D" uid="uid://dppm7ht40gksw" path="res://plaster_brick_pattern_4k/textures/plaster_brick_pattern_diff_4k.png" id="5_xcwye"]
+[ext_resource type="Script" path="res://counter.gd" id="6_2fh5v"]
+[ext_resource type="PackedScene" uid="uid://dlv42svxp73fq" path="res://player.tscn" id="6_8keij"]
+[ext_resource type="PackedScene" uid="uid://6mjx67kqv2q3" path="res://fountain_water_simulation.glb" id="6_miogd"]
+[ext_resource type="PackedScene" uid="uid://cmnlk57c7frqt" path="res://fence_highpoly.glb" id="7_n4noo"]
+[ext_resource type="PackedScene" uid="uid://ccithuuc25yby" path="res://realistic_trees_pack_of_2_free.glb" id="8_qdtdp"]
+[ext_resource type="PackedScene" uid="uid://bo53anne8hdah" path="res://bench.glb" id="9_evr4w"]
+[ext_resource type="PackedScene" uid="uid://celcjgdyxaegt" path="res://park_bench (1).glb" id="10_xy0a4"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ml53f"]
+panorama = ExtResource("1_iboay")
+
+[sub_resource type="Sky" id="Sky_o88ij"]
+sky_material = SubResource("PanoramaSkyMaterial_ml53f")
+
+[sub_resource type="Environment" id="Environment_n0iun"]
+background_mode = 2
+sky = SubResource("Sky_o88ij")
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_elatq"]
+albedo_texture = ExtResource("2_aeaar")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4vhed"]
+albedo_texture = ExtResource("5_1lv00")
+uv1_scale = Vector3(8, 1, 3)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7ls2l"]
+material = SubResource("StandardMaterial3D_4vhed")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1p233"]
+albedo_texture = ExtResource("5_xcwye")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1p3mr"]
+bg_color = Color(0, 0, 0, 1)
+corner_detail = 11
+
+[node name="Scene" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.875139, 0)
+script = ExtResource("1_mg3sh")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_n0iun")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 4.86347, 0)
+shadow_enabled = true
+
+[node name="map" type="Node3D" parent="."]
+
+[node name="floor" type="CSGBox3D" parent="map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.135345, -1.13788, -0.072998)
+use_collision = true
+size = Vector3(100, 1, 100)
+material = SubResource("StandardMaterial3D_elatq")
+
+[node name="Path" type="MeshInstance3D" parent="map"]
+transform = Transform3D(50, 0, 0, 0, 5, 0, 0, 0, 4, 0.65626, -0.526625, 0.000257492)
+mesh = SubResource("PlaneMesh_7ls2l")
+skeleton = NodePath("")
+
+[node name="Path2" type="MeshInstance3D" parent="map"]
+transform = Transform3D(-0.674, -0.682954, -3.96214, 0.125383, 4.95309, -0.546546, 49.9953, -0.0216289, -0.052044, 0.65626, -0.526625, 0.000257492)
+mesh = SubResource("PlaneMesh_7ls2l")
+skeleton = NodePath("")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.150273, 0)
+use_collision = true
+size = Vector3(50, 0.5, 50)
+material = SubResource("StandardMaterial3D_1p233")
+
+[node name="Sketchfab_Scene" parent="map/CSGBox3D" instance=ExtResource("6_miogd")]
+transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, 0, 0.321307, 0)
+
+[node name="Sketchfab_Scene" parent="map" instance=ExtResource("7_n4noo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.4307, 5.32006, 0)
+
+[node name="Sketchfab_Scene3" parent="map" instance=ExtResource("7_n4noo")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.23798, 5.32006, -46.5933)
+
+[node name="Sketchfab_Scene4" parent="map" instance=ExtResource("7_n4noo")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.23798, 5.32006, 46.6832)
+
+[node name="Sketchfab_Scene2" parent="map" instance=ExtResource("7_n4noo")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 47.9908, 5.32006, 0)
+
+[node name="trees" parent="map" instance=ExtResource("8_qdtdp")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -33.4406, -0.752703, 38.7245)
+
+[node name="trees3" parent="map" instance=ExtResource("8_qdtdp")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -28.2152, -0.752703, -40.5374)
+
+[node name="trees2" parent="map" instance=ExtResource("8_qdtdp")]
+transform = Transform3D(0.0257951, 0, -1.99983, 0, 2, 0, 1.99983, 0, 0.0257951, 42.8242, -0.752703, 30.4496)
+
+[node name="bench" parent="map" instance=ExtResource("9_evr4w")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 34.8125, 2.08784, -31.9857)
+
+[node name="bench2" parent="map" instance=ExtResource("10_xy0a4")]
+transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 18.8326, -0.564529, -28.9439)
+
+[node name="bench4" parent="map" instance=ExtResource("10_xy0a4")]
+transform = Transform3D(-0.00620192, 0, 0.0596786, 0, 0.06, 0, -0.0596786, 0, -0.00620192, -29.8104, -0.564529, -13.5222)
+
+[node name="bench5" parent="map" instance=ExtResource("10_xy0a4")]
+transform = Transform3D(-0.00164181, 0, -0.0599775, 0, 0.06, 0, 0.0599775, 0, -0.00164181, 29.0993, -0.564529, 15.2448)
+
+[node name="bench3" parent="map" instance=ExtResource("10_xy0a4")]
+transform = Transform3D(-0.0599732, -0.00160793, -0.000793737, -0.00163238, 0.0599477, 0.0018986, 0.000742165, 0.00191934, -0.0599647, -11.8717, -0.672871, 28.5422)
+
+[node name="Player" parent="." instance=ExtResource("6_8keij")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -36.4595, 0, 8.99801)
+
+[node name="coinSilver" parent="." instance=ExtResource("5_tgs28")]
+transform = Transform3D(0.199688, -0.00893057, 0.00671646, 0.00689084, 0.00378027, -0.199846, 0.00879672, 0.199765, 0.00408206, -38.9872, 1.34369, -16.0939)
+
+[node name="coinSilver8" parent="." instance=ExtResource("5_tgs28")]
+transform = Transform3D(-0.0607885, -0.190453, -0.00569863, 0.00689084, 0.00378027, -0.199846, 0.190414, -0.0609379, 0.00541291, 18.6947, 1.34369, 29.0418)
+
+[node name="coinSilver7" parent="." instance=ExtResource("5_tgs28")]
+transform = Transform3D(0.199688, -0.00893057, 0.00671646, 0.00689084, 0.00378027, -0.199846, 0.00879672, 0.199765, 0.00408206, 2.66073, 1.34369, 26.8067)
+
+[node name="coinSilver6" parent="." instance=ExtResource("5_tgs28")]
+transform = Transform3D(0.199688, -0.00893057, 0.00671646, 0.00689084, 0.00378027, -0.199846, 0.00879672, 0.199765, 0.00408206, 44.4811, 1.34369, -24.1943)
+
+[node name="coinSilver3" parent="." instance=ExtResource("5_tgs28")]
+transform = Transform3D(0.199688, -0.00893057, 0.00671646, 0.00689084, 0.00378027, -0.199846, 0.00879672, 0.199765, 0.00408206, 32.9654, 1.34369, 8.64048)
+
+[node name="coinSilver4" parent="." instance=ExtResource("5_tgs28")]
+transform = Transform3D(0.0532131, -0.192783, -0.00181184, 0.00689084, 0.00378027, -0.199846, 0.192668, 0.0531095, 0.00764796, -32.7203, 1.34369, 36.3548)
+
+[node name="coinSilver5" parent="." instance=ExtResource("5_tgs28")]
+transform = Transform3D(0.11189, -0.165772, 0.000722319, 0.00689084, 0.00378027, -0.199846, 0.16563, 0.111828, 0.00782639, 12.9271, 1.34369, -16.0939)
+
+[node name="coinSilver2" parent="." instance=ExtResource("5_tgs28")]
+transform = Transform3D(0.199688, -0.00893057, 0.00671646, 0.00689084, 0.00378027, -0.199846, 0.00879672, 0.199765, 0.00408206, -9.43715, 1.34369, -40.5835)
+
+[node name="HUD_Score" type="CanvasLayer" parent="."]
+
+[node name="Score" type="Label" parent="HUD_Score"]
+offset_left = 3.0
+offset_top = -6.0
+offset_right = 121.0
+offset_bottom = 49.0
+theme_override_font_sizes/font_size = 40
+text = "Score:"
+
+[node name="Counter" type="Label" parent="HUD_Score"]
+offset_left = 127.0
+offset_top = -3.0
+offset_right = 157.0
+offset_bottom = 46.0
+theme_override_font_sizes/font_size = 35
+text = "A"
+script = ExtResource("6_2fh5v")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameOverLabel" type="Label" parent="CanvasLayer"]
+offset_left = 775.0
+offset_top = 464.0
+offset_right = 1311.0
+offset_bottom = 641.0
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_1p3mr")
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="timeRemaining" type="Label" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.958
+anchor_right = 0.978
+offset_left = -124.616
+offset_right = 17.344
+offset_bottom = 35.0
+theme_override_font_sizes/font_size = 25
+
+[node name="GameFinished" type="Label" parent="CanvasLayer"]
+offset_left = 9.0
+offset_top = 117.0
+offset_right = 306.0
+offset_bottom = 172.0
+theme_override_font_sizes/font_size = 40
+text = "Game Finished!"
+
+[connection signal="coinCollected" from="coinSilver" to="HUD_Score/Counter" method="_on_coin_silver_coin_collected"]
+[connection signal="coinCollected" from="coinSilver8" to="HUD_Score/Counter" method="_on_coin_silver_coin_collected"]
+[connection signal="coinCollected" from="coinSilver7" to="HUD_Score/Counter" method="_on_coin_silver_coin_collected"]
+[connection signal="coinCollected" from="coinSilver6" to="HUD_Score/Counter" method="_on_coin_silver_coin_collected"]
+[connection signal="coinCollected" from="coinSilver3" to="HUD_Score/Counter" method="_on_coin_silver_coin_collected"]
+[connection signal="coinCollected" from="coinSilver4" to="HUD_Score/Counter" method="_on_coin_silver_coin_collected"]
+[connection signal="coinCollected" from="coinSilver5" to="HUD_Score/Counter" method="_on_coin_silver_coin_collected"]
+[connection signal="coinCollected" from="coinSilver2" to="HUD_Score/Counter" method="_on_coin_silver_coin_collected"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

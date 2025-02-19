@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bi7gndj4o5g6o"
+path="res://.godot/imported/model.obj-08579dc5cc10379b7aff6f19295c18a5.mesh"
+
+[deps]
+
+files=["res://.godot/imported/model.obj-08579dc5cc10379b7aff6f19295c18a5.mesh"]
+
+source_file="res://stylized-pirate-coin/source/model.obj"
+dest_files=["res://.godot/imported/model.obj-08579dc5cc10379b7aff6f19295c18a5.mesh", "res://.godot/imported/model.obj-08579dc5cc10379b7aff6f19295c18a5.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

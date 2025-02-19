@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://bo75ra63fnmd5"]
+
+[ext_resource type="Script" path="res://coin_silver.gd" id="1_oyh0c"]
+[ext_resource type="Texture2D" uid="uid://dc8jd3o51w6pq" path="res://stylized-pirate-coin/textures/lambert1_roughness.jpeg" id="1_yxker"]
+[ext_resource type="ArrayMesh" uid="uid://bi7gndj4o5g6o" path="res://stylized-pirate-coin/source/model.obj" id="2_wqadi"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vprku"]
+albedo_texture = ExtResource("1_yxker")
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_pdumf"]
+height = 3.34024
+radius = 6.30811
+
+[node name="coinSilver" type="Area3D"]
+transform = Transform3D(0.999004, 0, 0.0446307, 0.0433325, 0.239432, -0.969946, -0.010686, 0.970913, 0.239193, 0, 7, 0)
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_oyh0c")
+
+[node name="conSilverClone" type="Node3D" parent="."]
+
+[node name="coin" type="MeshInstance3D" parent="conSilverClone"]
+transform = Transform3D(0.069666, -0.996222, -0.0518512, 0.981069, 0.0778358, -0.177327, 0.180692, -0.038516, 0.982785, -0.0421165, -0.565156, -0.266455)
+material_override = SubResource("StandardMaterial3D_vprku")
+mesh = ExtResource("2_wqadi")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37722e-08, -1, 6.98492e-10, 1, -4.56348e-08, -2.98023e-08, 2.98023e-08, 2.32831e-10, 1, 0.0310836, -0.115633, -0.69577)
+shape = SubResource("CylinderShape3D_pdumf")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
